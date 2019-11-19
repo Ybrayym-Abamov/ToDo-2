@@ -9,18 +9,19 @@ import { addTodo, clearCompletedTodos } from "./actions"
 
 class App extends Component {
   state = {
-    todos: todosList,
-    value: ""
+     todos: todosList,
+    value: "",
+    completed: false
   };
   // event handlers = inside we are using this.setState
   handleDelete = (event, todoIdToDelete) => {
     // identify what we want to change in state
     // create a copy of state and modify it
-    const newTodoList = this.state.todos.filter(
-      todo => todo.id !== todoIdToDelete  // generate true/false
-    );
-    // overwrite the old state with new state
-    this.setState({ todos: newTodoList });
+    // const newTodoList = this.state.todos.filter(
+    //   todo => todo.id !== todoIdToDelete  // generate true/false
+    // );
+    // // overwrite the old state with new state
+    // this.setState({ todos: newTodoList });
   };
 
   handleCreate = (event) => {
@@ -95,7 +96,7 @@ class App extends Component {
         <footer className="footer">
           {/* <!-- This should be `0 items left` by default --> */}
           <span className="todo-count">
-            <strong>{this.state.todos.filter(todo => todo.completed !== true).length}</strong> item(s) left
+            <strong>{this.props.todos.filter(todo => todo.completed !== true).length}</strong> item(s) left
           </span>
           <ul className="filters">
             <li>

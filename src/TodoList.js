@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TodoItem from "./TodoItem";
 import { connect } from "react-redux";
 import { toggleTodo } from "./actions";
-
+import { toggleDelete} from "./actions";
 
 
 
@@ -15,8 +15,9 @@ class TodoList extends Component {
           {this.props.todos.map(todo => (
             <TodoItem
               key={todo.id}
+              id = {todo.id}
               //handleToggle={event => this.props.toggleTodo(todo.id)}
-              handleDelete={event => this.props.handleDelete(event, todo.id)}
+              // handleDelete={event => this.props.toggleDelete(event, todo.id)}
               handleToggle={event => this.props.toggleTodo(todo.id)}
               title={todo.title}
               completed={todo.completed}
@@ -28,7 +29,7 @@ class TodoList extends Component {
   }
 }
 const mapDispatchToProps = {
-  toggleTodo
+  toggleTodo, toggleDelete
 }
 
 // store.dispatch(toggelTodo())
