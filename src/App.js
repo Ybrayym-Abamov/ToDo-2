@@ -3,6 +3,9 @@ import "./index.css";
 import todosList from "./todos.json";
 import { Route, NavLink } from "react-router-dom";
 import TodoList from "./TodoList"
+import { connect } from "react-redux"
+import { addTodo, clearCompletedTodos } from "./actions"
+
 
 class App extends Component {
   state = {
@@ -21,46 +24,16 @@ class App extends Component {
   };
 
   handleCreate = (event) => {
-    // implement me!
     // event.key
-    if (event.key === "Enter") {
-      // add the todo
-      // this.state.value
-      const newTodoList = this.state.todos.slice();
-      newTodoList.push({
-        userId: 1,
-        id: Math.floor(Math.random() * 100000000),
-        title: this.state.value,
-        completed: false
-      })
-      this.setState({ todos: newTodoList, value: "" })
+    if (event.key === "Enter") {  
+      this.props.addTodo(this.state.value);
+      this.setState({ value: "" });
     }
-  }
-
-  handleToggle = todoIdToToggle => {
-    // immubility pattern
-
-    // modify the copy
-    // map
-    // 1. create a new array
-    // 2. can specify how you want to modify each item
-    const newTodoList = this.state.todos.map(todo => {
-      if (todo.id === todoIdToToggle) {
-        // modify this todo
-        // toggle its completed value 
-        // create a copy of the todo to modify
-        const newTodo = { ...todo }
-        // modify the copy 
-        newTodo.completed = !newTodo.completed;
-        // voerwrite the original with the copy
-        return newTodo;
-      }
-      // return the todo
-      return todo;
-    });
-    // overwrite the old state with new state
-    this.setState({ todos: newTodoList });
   };
+
+  // handleToggle = todoIdToToggle => {
+
+  // };
 
   handleChange = (event) => {
     this.setState({ value: event.target.value })
@@ -78,7 +51,7 @@ class App extends Component {
     return (
       <section className="todoapp">
         <header className="header">
-          <h1>todos</h1>
+          <h1>To Do's</h1>
           <input
             className="new-todo"
             placeholder="What needs to be done?"
@@ -94,9 +67,8 @@ class App extends Component {
           render={() => (
             <TodoList
               handleClear={this.handleClear}
-              handleToggle={this.handleToggle}
               handleDelete={this.handleDelete}
-              todos={this.state.todos}
+              todos={this.props.todos}
             />
           )}
         />
@@ -105,9 +77,8 @@ class App extends Component {
           render={() => (
             <TodoList
               handleClear={this.handleClear}
-              handleToggle={this.handleToggle}
               handleDelete={this.handleDelete}
-              todos={this.state.todos.filter(todo => todo.completed === false)}
+              todos={this.props.todos.filter(todo => todo.completed === false)}
             />
           )}
         />
@@ -116,9 +87,8 @@ class App extends Component {
           render={() => (
             <TodoList
               handleClear={this.handleClear}
-              handleToggle={this.handleToggle}
               handleDelete={this.handleDelete}
-              todos={this.state.todos.filter(todo => todo.completed === true)}
+              todos={this.props.todos.filter(todo => todo.completed === true)}
             />
           )}
         />
@@ -144,7 +114,7 @@ class App extends Component {
                 </NavLink>
             </li>
           </ul>
-          <button onClick={this.handleClear} className="clear-completed">Clear completed</button>
+          <button onClick={this.props.clearCompletedTodos} className="clear-completed">Clear completed</button>
         </footer>
       </section>
     );
@@ -152,7 +122,18 @@ class App extends Component {
 }
 
 
+//mapStateToProps
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos
+  }
+}
+//mapDispatchToProps
+// store.dispatch
+// add "addTodo" as a prop to the component 
+// When we call "this.props.addTodo", it will make sure to call store.dispatch(addTodo())
+const mapDispatchToProps = {
+  addTodo, clearCompletedTodos
+};
 
-
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
