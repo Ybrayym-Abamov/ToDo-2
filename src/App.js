@@ -6,7 +6,7 @@ import TodoList from "./TodoList"
 import { connect } from "react-redux"
 import { addTodo, clearCompletedTodos } from "./actions"
 
-
+// this is really hard to do
 class App extends Component {
   state = {
      todos: todosList,
