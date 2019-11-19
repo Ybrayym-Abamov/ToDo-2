@@ -13,10 +13,7 @@ import reducer from "./reducer";
 const store = createStore(reducer);
 
 ReactDOM.render(
-<<<<<<< HEAD
     <Provider store={store}>
-=======
->>>>>>> 8c4fc01171c95249001a63fe971dc8da43c5afdc
     <Router basename={process.env.PUBLIC_URL}>
         <App />,
     </Router>,
