@@ -1,6 +1,10 @@
 {
   "name": "todos",
+<<<<<<< HEAD
   "homepage": "https://Ybrayym.gitlab.io/todo-part-3",
+=======
+  "homepage": "https://Ybrayym.gitlab.io/todo-part-2",
+>>>>>>> 8c4fc01171c95249001a63fe971dc8da43c5afdc
   "version": "0.1.0",
   "private": true,
   "dependencies": {
